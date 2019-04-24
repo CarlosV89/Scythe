@@ -17,6 +17,7 @@ func init() {
 
 	initCmd.Flags().StringVarP(&accountId, "accountId", "a", "", "Harvest API AccountId")
 	initCmd.Flags().StringVarP(&token, "token", "t", "", "Harvest API Token")
+
 	rootCmd.AddCommand(initCmd)
 }
 
