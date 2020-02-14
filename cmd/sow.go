@@ -7,16 +7,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-var daily bool
-var hours int
-var getGitCommitLogs bool
+var daily 		bool
+var hours 		int
+var description string
 
 func init() {
-
-	initCmd.Flags().IntVarP(&daily, "hours", "h", "", "How many hours in time do you wish to log")
-	initCmd.Flags().StringVarP(&hours, "hours", "h", "", "How many hours in time do you wish to log")
-	initCmd.Flags().StringVarP(&token, "git-logs", "g", "", "Whether you want your commit logs in your daily hours report")
-
+	sowCmd.Flags().IntVarP(&daily, "hours", "h", "", "How many hours in time do you wish to log")
+	sowCmd.Flags().StringVarP(&hours, "hours", "h", "", "How many hours in time do you wish to log")
+	
 	rootCmd.AddCommand(sowCmd)
 }
 
