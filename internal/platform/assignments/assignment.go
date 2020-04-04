@@ -6,20 +6,23 @@ type DTO struct {
 	AssignedTasks   []TaskAssignmentDTO  `json:"task_assignments"`
 }
 
-type ProjectAssignmentDTO struct {
-	Id   int    ``
-	Name string `json:"name"`
+func (d *DTO) toModel() Assignment {
+  
 }
 
+
 type ClientAssignmentDTO struct {
+  Id   int    `json:"id"`
 	Name string `json:"name"`
 }
 
 type TaskAssignmentDTO struct {
+  Id   int     `json:"id"`
 	Task TaskDTO `json:"task"`
 }
 
 type TaskDTO struct {
+  Id   int    `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -33,6 +36,15 @@ type assignment struct {
 	assignedProject ProjectAssignment
 	assignedClient  ClientAssignment
 	assignedTasks   []TaskAssignment
+}
+
+type ProjectAssignmentDTO struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
+
+func (d *ProjectAssignmentDTO) toModel() ProjectAssignment {
+  
 }
 
 type ProjectAssignment interface {
