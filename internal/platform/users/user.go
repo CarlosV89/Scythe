@@ -46,13 +46,13 @@ func (u *user) GetTimezone() string {
 	return u.timeZone
 }
 
-// NewFromDTO serializes a DTO into a User model
-func NewFromDTO(d *UserDTO) (User, error) {
+// ToModel serializes a DTO into a User model
+func (dto *UserDTO) ToModel() (User, error) {
 	return NewUser(
-		d.ID,
-		fmt.Sprintf("%s %s", d.FirstName, d.LastName),
-		d.Email,
-		d.Timezone,
+		dto.ID,
+		fmt.Sprintf("%s %s", dto.FirstName, dto.LastName),
+		dto.Email,
+		dto.Timezone,
 	), nil
 }
 

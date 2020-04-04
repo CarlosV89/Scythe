@@ -14,6 +14,7 @@ type Harvester interface {
 		endpoint string,
 	) []byte
 }
+
 type harvester struct {
 	c  http.Client // client
 	t  string      // Authorization token

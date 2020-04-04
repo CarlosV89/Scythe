@@ -24,10 +24,13 @@ func (s *Service) FindCurrentUser() User {
 		nil,
 		fmt.Sprintf("%s/me", endpoint),
 	)
+
 	err := json.Unmarshal(body, &dto)
 	user, err = NewFromDTO(&dto)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	return user
 }
