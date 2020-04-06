@@ -1,29 +1,17 @@
 package assignments
 
-type DTO struct {
+type AssignmentDTO struct {
 	AssignedProject ProjectAssignmentDTO `json:"project"`
 	AssignedClient  ClientAssignmentDTO  `json:"client"`
 	AssignedTasks   []TaskAssignmentDTO  `json:"task_assignments"`
 }
 
-func (d *DTO) toModel() Assignment {
-  
-}
-
-
-type ClientAssignmentDTO struct {
-  Id   int    `json:"id"`
-	Name string `json:"name"`
-}
-
-type TaskAssignmentDTO struct {
-  Id   int     `json:"id"`
-	Task TaskDTO `json:"task"`
-}
-
-type TaskDTO struct {
-  Id   int    `json:"id"`
-	Name string `json:"name"`
+func (d *AssignmentDTO) ToModel() Assignment {
+	var tasks []TaskAssignment
+	for _, task := range d.AssignedTasks {
+		tasks = append(tasks, task.ToModel())
+	}
+	return NewAssignment(d.AssignedProject.ToModel(), d.AssignedClient.ToModel(), tasks)
 }
 
 type Assignment interface {
@@ -38,61 +26,20 @@ type assignment struct {
 	assignedTasks   []TaskAssignment
 }
 
-type ProjectAssignmentDTO struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+func NewAssignment(ap ProjectAssignment, ac ClientAssignment, at []TaskAssignment) Assignment {
+	return &assignment{ap, ac, at}
 }
 
-func (d *ProjectAssignmentDTO) toModel() ProjectAssignment {
-  
+func (a *assignment) GetAssignedProject() ProjectAssignment {
+	return a.assignedProject
 }
 
-type ProjectAssignment interface {
-	GetName() string
+func (a *assignment) GetAssignedClient() ClientAssignment {
+	return a.assignedClient
 }
 
-type projectAssignment struct {
-	name string
-}
-
-func (pa *projectAssignment) GetName() string {
-	return pa.name
-}
-
-type ClientAssignment interface {
-	GetName() string
-}
-
-type clientAssignment struct {
-	name string
-}
-
-func (ca *clientAssignment) GetName() string {
-	return ca.name
-}
-
-type TaskAssignment interface {
-	GetTaskName() string
-}
-
-type taskAssignment struct {
-	task Task
-}
-
-func (ta *taskAssignment) GetTaskName() string {
-	return ta.task.GetName()
-}
-
-type Task interface {
-	GetName() string
-}
-
-type task struct {
-	name string
-}
-
-func (t *task) GetName() string {
-	return t.name
+func (a *assignment) GetAssignedTasks() []TaskAssignment {
+	return a.assignedTasks
 }
 
 /*"project_assignments":[
