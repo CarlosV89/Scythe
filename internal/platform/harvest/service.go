@@ -1,4 +1,3 @@
-
 package assignments
 
 import (
@@ -18,8 +17,8 @@ func (s *Service) getEndpoint(userId string) string {
 }
 
 func (s *Service) FindCurrentUsersAssignments() Assignment[] {
-	var userAssignments Assignment
-	var dto DTO
+	var userAssignments []Assignment
+	var dto AssignmentDTO
 
 	body := s.h.Request(
 		"GET",
