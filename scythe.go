@@ -14,8 +14,8 @@
 
 package main
 
-import "github.com/vanor89/scythe/cmd"
+import "os"
 
 func main() {
-	cmd.Execute()
+	cmd := newRootCmd(os.Args[1:])
 }
