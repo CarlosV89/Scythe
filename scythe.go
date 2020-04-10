@@ -14,8 +14,16 @@
 
 package main
 
-import "os"
+import (
+	"fmt"
+	"os"
+
+	"github.com/vanor89/scythe/cmd"
+)
 
 func main() {
-	cmd := newRootCmd(os.Args[1:])
+	if err := cmd.Execute(); err != nil {
+		fmt.Printf("%+v", err)
+		os.Exit(1)
+	}
 }

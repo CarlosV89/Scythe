@@ -26,7 +26,7 @@ func (s *Service) FindCurrentUser() User {
 	)
 
 	err := json.Unmarshal(body, &dto)
-	user, err = NewFromDTO(&dto)
+	user, err = dto.ToModel()
 
 	if err != nil {
 		log.Fatal(err)
