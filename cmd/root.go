@@ -25,14 +25,7 @@ import (
 
 var (
 	cfgFile string
-	rootCmd = &cobra.Command{
-		Use:   "scythe",
-		Short: "A brief description of your application",
-		Long:  `A longer description that spans multiple lines and likely contains`,
-		// Uncomment the following line if your bare application
-		// has an action associated with it:
-		//	Run: func(cmd *cobra.Command, args []string) { },
-	}
+	rootCmd cobra.Command
 )
 
 // initConfig reads in config file and ENV variables if set.
@@ -64,7 +57,7 @@ func initConfig() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
+	rootCmd := NewRootCmd()
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
@@ -77,6 +70,17 @@ func init() {
 	// rootCmd.AddCommand(ammendCmd)
 	// rootCmd.AddCommand(reapCmd)
 	rootCmd.AddCommand(sowCmd)
+}
+
+func NewRootCmd() *cobra.Command {
+	return &cobra.Command{
+		Use:   "scythe",
+		Short: "A brief description of your application",
+		Long:  `A longer description that spans multiple lines and likely contains`,
+		// Uncomment the following line if your bare application
+		// has an action associated with it:
+		//	Run: func(cmd *cobra.Command, args []string) { },
+	}
 }
 
 // rootCmd represents the base command when called without any subcommands
