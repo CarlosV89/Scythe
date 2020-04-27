@@ -10,15 +10,14 @@ import (
 	"github.com/spf13/viper"
 )
 
-var accountId string
+var accountID string
 var token string
 
 func init() {
 
-	initCmd.Flags().StringVarP(&accountId, "accountId", "a", "", "Harvest API AccountId")
+	initCmd.Flags().StringVarP(&accountID, "accountId", "a", "", "Harvest API AccountId")
 	initCmd.Flags().StringVarP(&token, "token", "t", "", "Harvest API Token")
 
-	rootCmd.AddCommand(initCmd)
 }
 
 var initCmd = &cobra.Command{
@@ -33,12 +32,12 @@ var initCmd = &cobra.Command{
 			os.Exit(1)
 		}
 
-		if accountId == "" {
+		if accountID == "" {
 			prompt := promptui.Prompt{
 				Label: "Enter your Harvest Account ID:",
 			}
 
-			accountId, err = prompt.Run()
+			accountID, err = prompt.Run()
 
 			if err != nil {
 				fmt.Println(err)
@@ -59,7 +58,7 @@ var initCmd = &cobra.Command{
 			}
 		}
 
-		viper.Set("Harvest.AccountId", accountId)
+		viper.Set("Harvest.AccountId", accountID)
 		viper.Set("Harvest.Token", token)
 
 		if err := viper.SafeWriteConfig(); err != nil {

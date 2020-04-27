@@ -25,7 +25,14 @@ import (
 
 var (
 	cfgFile string
-	rootCmd cobra.Command
+	rootCmd = &cobra.Command{
+		Use:   "scythe",
+		Short: "A brief description of your application",
+		Long:  `A longer description that spans multiple lines and likely contains`,
+		// Uncomment the following line if your bare application
+		// has an action associated with it:
+		Run: func(cmd *cobra.Command, args []string) {},
+	}
 )
 
 // initConfig reads in config file and ENV variables if set.
@@ -57,36 +64,26 @@ func initConfig() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-	rootCmd := NewRootCmd()
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.scythe.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.scythe.yml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
+	// rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.AddCommand(initCmd)
 	// rootCmd.AddCommand(ammendCmd)
 	// rootCmd.AddCommand(reapCmd)
-	rootCmd.AddCommand(sowCmd)
-}
-
-func NewRootCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "scythe",
-		Short: "A brief description of your application",
-		Long:  `A longer description that spans multiple lines and likely contains`,
-		// Uncomment the following line if your bare application
-		// has an action associated with it:
-		//	Run: func(cmd *cobra.Command, args []string) { },
-	}
+	// rootCmd.AddCommand(sowCmd)
 }
 
 // rootCmd represents the base command when called without any subcommands
 
 // Execute adds all child commands to the root command and sets flags appropriately.
 // This is called by main.main(). It only needs to happen once to the rootCmd.
-func Execute() error {
-	return rootCmd.Execute()
+func Execute() {
+	if err := rootCmd.Execute(); err != nil {
+		fmt.Println("error:", err)
+	}
 }
